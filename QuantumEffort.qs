@@ -16,26 +16,25 @@
             }
         }
     }
-}
 
+    operation QubitsStatistics(msg : Bool) : Bool {
+        body {
+            mutable measurement = false;
 
-operation QubitsStatistics(msg : Bool) : Bool {
-    body {
-        mutable measurement = false;
+            using (qubits = Qubit[1]) {
 
-        using (qubits = Qubit[1]) {
+                // One by default
+                Set(One, qubits[0]);
 
-            // One by default
-            Set(qubits[0], One);
+                if (M(qubits[0]) != Zero) {
+                    set measurement = true;
+                }
 
-            if (M(qubits[0]) != Zero) {
-                set measurment = true;
-            }
-
-            // Reset all of the qubits that we used before releasing them
-            ResetAll(qubits);
+                // Reset all of the qubits that we used before releasing them
+                ResetAll(qubits);
             }
             return measurement;
         }
     }
+
 }
